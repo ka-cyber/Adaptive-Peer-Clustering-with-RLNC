@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RLNC Adaptive Peer Clustering Simulation</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="container">
+                <h1>🧪 RLNC Adaptive Peer Clustering Simulation</h1>
+                <p class="subtitle">Demonstrating Random Linear Network Coding with Adaptive Peer Selection</p>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="nav-tabs">
+            <div class="container">
+                <button class="tab-btn active" data-tab="network">
+                    <span>📶</span> Network Topology
+                </button>
+                <button class="tab-btn" data-tab="performance">
+                    <span>📊</span> Performance Metrics
+                </button>
+                <button class="tab-btn" data-tab="clustering">
+                    <span>🔁</span> Clustering Analysis
+                </button>
+                <button class="tab-btn" data-tab="technical">
+                    <span>🧠</span> Technical Details
+                </button>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="container">
+                
+                <!-- Network Topology View -->
+                <section id="network" class="tab-content active">
+                    <div class="section-header">
+                        <h2>Network Topology & Clustering</h2>
+                        <div class="controls">
+                            <button class="btn btn--secondary" id="playPauseBtn">▶️ Play</button>
+                            <div class="simulation-controls">
+                                <label for="timeSlider">Time Step:</label>
+                                <input type="range" id="timeSlider" min="0" max="49" value="0" class="form-control">
+                                <span id="timeDisplay">Step 0</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="network-container">
+                        <div class="network-viz-panel">
+                            <div id="networkGraph" class="network-graph"></div>
+                        </div>
+                        <div class="network-legend">
+                            <h4>Legend</h4>
+                            <div class="legend-item">
+                                <div class="cluster-colors">
+                                    <span class="color-swatch cluster-0"></span> Cluster 0
+                                    <span class="color-swatch cluster-1"></span> Cluster 1
+                                    <span class="color-swatch cluster-2"></span> Cluster 2
+                                    <span class="color-swatch cluster-3"></span> Cluster 3
+                                </div>
+                            </div>
+                            <div class="legend-item">
+                                <p><strong>Node Size:</strong> Bandwidth (larger = higher)</p>
+                                <p><strong>Node Color:</strong> Cluster assignment</p>
+                                <p><strong>Connections:</strong> P2P links</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="network-stats">
+                        <div class="stat-card">
+                            <h4>Active Nodes</h4>
+                            <div class="stat-value" id="activeNodes">12</div>
+                        </div>
+                        <div class="stat-card">
+                            <h4>Total Clusters</h4>
+                            <div class="stat-value">4</div>
+                        </div>
+                        <div class="stat-card">
+                            <h4>Avg PDR</h4>
+                            <div class="stat-value" id="avgPDR">0.792</div>
+                        </div>
+                        <div class="stat-card">
+                            <h4>Network Resilience</h4>
+                            <div class="stat-value" id="resilience">0.400</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Performance Metrics View -->
+                <section id="performance" class="tab-content">
+                    <div class="section-header">
+                        <h2>Performance Metrics Comparison</h2>
+                        <p>Comparing Adaptive RLNC clustering vs Baseline random peer selection</p>
+                    </div>
+
+                    <div class="charts-grid">
+                        <div class="chart-container">
+                            <h4>Performance Over Time</h4>
+                            <div style="position: relative; height: 400px;">
+                                <canvas id="performanceChart"></canvas>
+                            </div>
+                        </div>
+                        
+                        <div class="chart-container">
+                            <h4>Final Performance Comparison</h4>
+                            <div style="position: relative; height: 400px;">
+                                <canvas id="comparisonChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="metrics-summary">
+                        <div class="metric-card success">
+                            <h4>PDR Improvement</h4>
+                            <div class="metric-value">+0.78%</div>
+                            <p>Packet Delivery Rate</p>
+                        </div>
+                        <div class="metric-card success">
+                            <h4>Redundancy Efficiency</h4>
+                            <div class="metric-value">+1.36%</div>
+                            <p>Reduced overhead</p>
+                        </div>
+                        <div class="metric-card warning">
+                            <h4>Node Retention</h4>
+                            <div class="metric-value">12 vs 18</div>
+                            <p>Adaptive vs Baseline</p>
+                        </div>
+                    </div>
+
+                    <div class="pre-generated-charts">
+                        <h4>Detailed Analysis</h4>
+                        <img src="https://ppl-ai-code-interpreter-files.s3.amazonaws.com/web/direct-files/b86dbc5e11ec1165002bd78bcbfd6d0f/65dffd42-c796-494d-ab6a-35ff5bb39b1a/e81b2736.png" alt="RLNC Performance Comparison" class="analysis-chart">
+                        <p class="chart-caption">Performance comparison between Adaptive RLNC clustering and Baseline RLNC approaches over 50 simulation time steps</p>
+                    </div>
+                </section>
+
+                <!-- Clustering Analysis View -->
+                <section id="clustering" class="tab-content">
+                    <div class="section-header">
+                        <h2>Adaptive Clustering Analysis</h2>
+                        <p>Understanding how nodes are grouped by performance characteristics</p>
+                    </div>
+
+                    <div class="clustering-overview">
+                        <div class="chart-container">
+                            <h4>Node Distribution by Performance</h4>
+                            <img src="https://ppl-ai-code-interpreter-files.s3.amazonaws.com/web/direct-files/b86dbc5e11ec1165002bd78bcbfd6d0f/e1bd1a80-d5fb-439e-a70a-5b9d616eeab7/5c3140e8.png" alt="Clustering Distribution" class="analysis-chart">
+                            <p class="chart-caption">Network nodes distributed by performance metrics and clustered adaptively based on bandwidth, latency, and packet delivery rates</p>
+                        </div>
+
+                        <div class="cluster-stats-panel">
+                            <h4>Cluster Statistics</h4>
+                            <div class="cluster-list" id="clusterStats">
+                                <!-- Populated by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="clustering-methodology">
+                        <h4>Clustering Algorithm</h4>
+                        <div class="method-steps">
+                            <div class="step-card">
+                                <h5>1. Performance Scoring</h5>
+                                <p>Each node is scored based on EWMA Packet Delivery Rate (PDR), bandwidth capacity, and latency characteristics.</p>
+                            </div>
+                            <div class="step-card">
+                                <h5>2. Similarity Metrics</h5>
+                                <p>Nodes are grouped using weighted similarity considering link quality, reliability, and network position.</p>
+                            </div>
+                            <div class="step-card">
+                                <h5>3. Dynamic Adaptation</h5>
+                                <p>Clusters adapt to network churn, link failures, and changing performance conditions in real-time.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Technical Details View -->
+                <section id="technical" class="tab-content">
+                    <div class="section-header">
+                        <h2>Technical Implementation Details</h2>
+                    </div>
+
+                    <div class="technical-content">
+                        <div class="tech-section">
+                            <h3>🔬 Simulation Parameters</h3>
+                            <div class="param-grid">
+                                <div class="param-item">
+                                    <strong>Network Size:</strong> 30 nodes
+                                </div>
+                                <div class="param-item">
+                                    <strong>Connection Probability:</strong> 0.3
+                                </div>
+                                <div class="param-item">
+                                    <strong>Generation Size:</strong> 32 packets
+                                </div>
+                                <div class="param-item">
+                                    <strong>Churn Rate:</strong> 2% per step
+                                </div>
+                                <div class="param-item">
+                                    <strong>Finite Field:</strong> GF(256)
+                                </div>
+                                <div class="param-item">
+                                    <strong>Simulation Steps:</strong> 50
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tech-section">
+                            <h3>📦 RLNC Implementation</h3>
+                            <div class="rlnc-explanation">
+                                <div class="rlnc-step">
+                                    <h4>Encoding Process</h4>
+                                    <p>Original packets are linearly combined using random coefficients from GF(256):</p>
+                                    <code>encoded_packet = α₁·p₁ + α₂·p₂ + ... + αₙ·pₙ (mod GF(256))</code>
+                                </div>
+                                <div class="rlnc-step">
+                                    <h4>Propagation</h4>
+                                    <p>Encoded packets are distributed through the P2P network. Each node can re-encode received packets before forwarding.</p>
+                                </div>
+                                <div class="rlnc-step">
+                                    <h4>Decoding</h4>
+                                    <p>Receivers collect linearly independent packets and use Gaussian elimination to recover original data.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tech-section">
+                            <h3>🤖 Adaptive Clustering Logic</h3>
+                            <div class="clustering-logic">
+                                <div class="algorithm-box">
+                                    <h4>Performance-Based Scoring</h4>
+                                    <p>Node score = w₁ × EWMA_PDR + w₂ × (1/latency) + w₃ × (bandwidth/max_bandwidth)</p>
+                                    <p>Where weights are: w₁ = 0.5, w₂ = 0.3, w₃ = 0.2</p>
+                                </div>
+                                <div class="algorithm-box">
+                                    <h4>Cluster Assignment</h4>
+                                    <p>Nodes are assigned to clusters that maximize intra-cluster performance similarity while maintaining network connectivity.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tech-section">
+                            <h3>🔗 OptimumP2P Integration</h3>
+                            <div class="integration-points">
+                                <div class="integration-item">
+                                    <h4>Peer Discovery Layer</h4>
+                                    <p>Adaptive clustering can enhance peer selection in OptimumP2P's discovery protocol by prioritizing high-quality peers.</p>
+                                </div>
+                                <div class="integration-item">
+                                    <h4>Congestion Awareness</h4>
+                                    <p>Real-time performance metrics can inform OptimumP2P's congestion control mechanisms.</p>
+                                </div>
+                                <div class="integration-item">
+                                    <h4>Redundancy Suppression</h4>
+                                    <p>Smart clustering reduces redundant transmissions while maintaining fault tolerance.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tech-section">
+                            <h3>📈 Key Findings</h3>
+                            <div class="findings-list">
+                                <div class="finding-item success">
+                                    <strong>Improved PDR:</strong> 0.78% improvement in packet delivery rates through intelligent peer selection
+                                </div>
+                                <div class="finding-item success">
+                                    <strong>Reduced Redundancy:</strong> 1.36% reduction in network overhead while maintaining reliability
+                                </div>
+                                <div class="finding-item info">
+                                    <strong>Trade-offs:</strong> Adaptive approach maintains fewer active connections but with higher quality links
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <p>RLNC Adaptive Peer Clustering Simulation - Demonstrating Network Coding Optimization for P2P Systems</p>
+                <div class="footer-links">
+                    <button class="btn btn--outline btn--sm" id="exportBtn">📁 Export Data</button>
+                    <a href="https://ppl-ai-code-interpreter-files.s3.amazonaws.com/web/direct-files/b86dbc5e11ec1165002bd78bcbfd6d0f/8f268c07-ace7-43da-b8af-970e6b1f6962/03bbbe46.md" target="_blank" class="btn btn--outline btn--sm">📄 Technical Report</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
