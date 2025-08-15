@@ -1,0 +1,11 @@
+{
+  "total_nodes": 30,
+  "total_edges": 133,
+  "network_density": 0.3057471264367816,
+  "average_clustering": 0.3198547748547748,
+  "is_connected": true,
+  "final_active_nodes": 12,
+  "churn_affected_nodes": 18,
+  "avg_shortest_path": 1.7448275862068965,
+  "diameter": 3
+}
